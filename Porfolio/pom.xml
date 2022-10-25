@@ -68,7 +68,25 @@
             <version>9.0.0</version>
             <type>jar</type>
         </dependency>
+        <!---ESTOS DOS-->
+        
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>2.7.5</version>
+        </dependency>
+        
+       
+
+        
+
+
+       
     </dependencies>
+    
+    
 
     <build>
         <plugins>
