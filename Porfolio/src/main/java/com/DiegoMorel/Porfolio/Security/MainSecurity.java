@@ -1,4 +1,5 @@
 package com.DiegoMorel.Porfolio.Security;
+
 import com.DiegoMorel.Porfolio.Security.Service.UserDetailsServiceImpl;
 import com.DiegoMorel.Porfolio.Security.jwt.JwtEntryPoint;
 import com.DiegoMorel.Porfolio.Security.jwt.JwtTokenFilter;
@@ -11,6 +12,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 //import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -62,7 +64,7 @@ public class MainSecurity {
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtEntryPoint)
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                http.authenticationProvider(authenticationProvider());
+        http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
@@ -72,7 +74,12 @@ public class MainSecurity {
         return authConfiguration.getAuthenticationManager();
     }
 
-   /* @Bean
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().antMatchers("/js/**", "/images/**");
+    }
+
+    /* @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
@@ -88,7 +95,7 @@ public class MainSecurity {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
         auth.setUserDetailsService(userDetailsServiceImpl);
         auth.setPasswordEncoder(passwordEncoder());
-               // userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder());
+        // userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder());
         return auth;
     }
 }

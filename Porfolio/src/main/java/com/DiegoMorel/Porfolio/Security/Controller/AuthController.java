@@ -13,9 +13,10 @@ import com.DiegoMorel.Porfolio.Security.Enums.RolNombre;
 import com.DiegoMorel.Porfolio.Security.Service.RolService;
 import com.DiegoMorel.Porfolio.Security.Service.UsuarioService;
 import com.DiegoMorel.Porfolio.Security.jwt.JwtProvider;
-import jakarta.validation.Valid;
+//import jakarta.validation.Valid;
 import java.util.HashSet;
 import java.util.Set;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -52,8 +53,10 @@ public class AuthController {
     {
         if(bindingResult.hasErrors())
             return new ResponseEntity(new Mensaje("Campos mal puestos o email invalido"),HttpStatus.BAD_REQUEST);
+        
         if(usuarioService.existsByNombreUsuario(nuevoUsuario.getNombreUsuario()))
                 return new ResponseEntity(new Mensaje("Este nombre de usario ya existe"), HttpStatus.BAD_REQUEST);
+        
          if(usuarioService.exitsByEmail(nuevoUsuario.getEmail()))
                 return new ResponseEntity(new Mensaje("Este email ya existe"), HttpStatus.BAD_REQUEST);
          
@@ -79,7 +82,7 @@ public class AuthController {
         
         String jwt = jwtProvider.generateToken(authentication);
         
-        UserDetails userDetails = (UserDetails) authentication.getAuthorities();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         
         JwtDTO jwtDto = new JwtDTO(jwt,userDetails.getUsername(),userDetails.getAuthorities());
         

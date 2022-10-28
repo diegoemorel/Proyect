@@ -4,7 +4,8 @@
  */
 package com.DiegoMorel.Porfolio.Security.Entity;
 
-import com.sun.istack.NotNull;
+
+
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -16,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 @Getter
@@ -25,11 +27,11 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotNull
-    private String name;
+    
+    private String nombre;
     @NotNull
     @Column(unique = true)
-    private String nameUser;
+    private String nombreUsuario;
     @NotNull
     private String email;
     @NotNull
@@ -42,8 +44,8 @@ public class Usuario {
     }
 
     public Usuario(String name, String nameUser, String email, String password) {
-        this.name = name;
-        this.nameUser = nameUser;
+        this.nombre = name;
+        this.nombreUsuario = nameUser;
         this.email = email;
         this.password = password;
     }
