@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.DiegoMorel.Porfolio.usser;
+package com.DiegoMorel.Porfolio.data.logo;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,16 +14,14 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-                        // ESTO ES UN USUARIO DE CONTACTO, NO ES EL LOGIN
-public class Usser {
-     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-     private Long id_usser;
-     private String name;
-     private String email;
-     private String phone;
-     private String affair;
-     private String message;
-     
-    
+public class Logo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
+    private String img;
+
+    public Logo() {
+    }
+
 }

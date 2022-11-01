@@ -9,5 +9,8 @@ import java.util.List;
 
 public interface IMyproyectsService {
     public List<Proyect> getData();
+    public void upDataMyp(Proyect p);
+    public void deleteMyp(Long i);
+    public void addMyp(Proyect p);
     
 }

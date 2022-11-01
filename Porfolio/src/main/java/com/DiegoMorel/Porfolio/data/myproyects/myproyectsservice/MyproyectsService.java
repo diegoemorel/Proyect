@@ -17,5 +17,21 @@ public class MyproyectsService implements IMyproyectsService {
     public List<Proyect> getData() {
         return mypRep.findAll();
     }
+
+    @Override
+    public void upDataMyp(Proyect p) {
+        mypRep.saveAndFlush(p);
+    }
+
+    @Override
+    public void deleteMyp(Long i) {
+        mypRep.deleteById(i);
+    }
+
+    @Override
+    public void addMyp(Proyect p) {
+        mypRep.save(p);
+        
+    }
     
 }

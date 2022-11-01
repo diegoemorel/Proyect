@@ -12,11 +12,33 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ExperienceService implements IExperienceService{
+    
     @Autowired
     IExperienceRepository expR;
+    
     @Override
     public List<Experience> getData() {
        return expR.findAll();
     }
+  
+    @Override
+    public void updataExp(Experience e) {
+         expR.saveAndFlush(e);
+    }
+
+    @Override
+    public void deleteExp(Long e) {
+        expR.deleteById(e);
+    }
+
+    @Override
+    public void addExp(Experience e) {
+        expR.save(e);
+        
+    }
+
+    
+
+   
     
 }

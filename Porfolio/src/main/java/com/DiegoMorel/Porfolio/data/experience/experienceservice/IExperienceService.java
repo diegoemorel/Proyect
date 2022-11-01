@@ -10,5 +10,8 @@ import java.util.List;
 
 public interface IExperienceService {
     public List<Experience> getData();
+    public void updataExp(Experience e);
+    public void deleteExp(Long e);
+    public void addExp(Experience e);
     
 }

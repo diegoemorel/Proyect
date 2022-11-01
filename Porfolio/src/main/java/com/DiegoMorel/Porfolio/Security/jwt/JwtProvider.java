@@ -39,6 +39,7 @@ public class JwtProvider {
     {
         try{
             Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+            return true;
         }catch(MalformedJwtException e)
                 {
                     LOGGER.error("TOKEN MAL FORMADO");

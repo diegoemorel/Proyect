@@ -6,20 +6,21 @@ package com.DiegoMorel.Porfolio.controller;
 
 import com.DiegoMorel.Porfolio.data.aboutme.Aboutme;
 import com.DiegoMorel.Porfolio.data.aboutme.aboutmeService.AboutmeService;
-import com.DiegoMorel.Porfolio.data.aboutme.aboutmeService.IAboutmeService;
 import com.DiegoMorel.Porfolio.data.experience.Experience;
-import com.DiegoMorel.Porfolio.data.experience.experienceservice.IExperienceService;
+import com.DiegoMorel.Porfolio.data.experience.experienceservice.ExperienceService;
+import com.DiegoMorel.Porfolio.data.logo.Logo;
+import com.DiegoMorel.Porfolio.data.logo.logoService.LogoServiceImpl;
 import com.DiegoMorel.Porfolio.data.myproyects.Proyect;
-import com.DiegoMorel.Porfolio.data.myproyects.myproyectsservice.IMyproyectsService;
+import com.DiegoMorel.Porfolio.data.myproyects.myproyectsservice.MyproyectsService;
 import com.DiegoMorel.Porfolio.usser.Usser;
-import com.DiegoMorel.Porfolio.usserservice.IUsserService;
+import com.DiegoMorel.Porfolio.usserservice.UsserService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.http.HttpStatus;
+//import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,20 +31,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class Controller {
 
     @Autowired
-    private IUsserService usserS; // CONTACTO < // cambiar nombre de la clase
+    private UsserService usserS; // CONTACTO < // cambiar nombre de la clase
     @Autowired
-    private IAboutmeService aboutS;
+    private AboutmeService aboutS;
     @Autowired
-    private IExperienceService expS;
+    private ExperienceService expS;
     @Autowired
-    private IMyproyectsService mypS;
+    private MyproyectsService mypS;
     @Autowired
-    private AboutmeService abS; 
+    private LogoServiceImpl logoS;
+    
 
     @PostMapping("/contact")
     public void addCont(@RequestBody Usser u) {
@@ -57,35 +59,102 @@ public class Controller {
         return aboutS.getData();
     }
     
-    @GetMapping("/sobremi")
+    /*@GetMapping("/sobremi")
     public ResponseEntity <List<Aboutme>> getDataSobreMi() {
         List <Aboutme> datos = abS.getData();
         
         return ResponseEntity.status(HttpStatus.OK).body(datos);
-    }
-
+    }*/
+    /* -----aboutme-*/
+    
     @GetMapping("/aboutme/{id}")
     public Optional<Aboutme> searchAboutmeForID(@PathVariable Long id) {
         return aboutS.searchForID(id);
     }
 
     //@PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/updata-aboutme")
+    @PostMapping("/updata-aboutme")
     public void updataAboutme(@RequestBody Aboutme newaboutme) {
         aboutS.update(newaboutme);
     }
-    //------------//       
+    //------------experience//       
 
     @GetMapping("/experience")
     @ResponseBody
     public List<Experience> getDataExperience() {
         return expS.getData();
     }
-
+    
+    @DeleteMapping("/deleteexp/{i}")
+    public void deleteExp(@PathVariable Long i)
+    {
+        expS.deleteExp(i);
+    }
+    
+    @PostMapping("/addexp")
+    public void addExp(@RequestBody Experience e)
+    {
+        expS.addExp(e);
+    }
+    
+    
+    
+    @PutMapping("/upexperience")
+    public void upDataExp(@RequestBody Experience newexp) {
+        expS.updataExp(newexp);
+    }
+    
+    
+   
+    
+ 
+    //*--------------*---proyects
     @GetMapping("/myproyects")
     @ResponseBody
     public List<Proyect> getDataMyproyects() {
         return mypS.getData();
+        
     }
+    
+    
+    @PutMapping("/upProyects")
+    public void upDataProyect(@RequestBody Proyect newp )
+    {
+        mypS.upDataMyp(newp);
+    }
+    
+    
+    @DeleteMapping("/deleteproyect/{i}")
+    public void deleteProyect(@PathVariable Long i)
+    {
+        mypS.deleteMyp(i);
+    }
+    
+    
+    @PostMapping("/addproyect")
+    public void addProyect(@RequestBody Proyect newp)
+    {
+        mypS.addMyp(newp);
+    }
+    
+    
+    
+    
+    
+    
+    
+    //----------*--------
+    @GetMapping("/logo")
+    @ResponseBody
+    public List<Logo> getLogo()
+    {
+        return logoS.getLogo();
+    }
+    @PutMapping("/uplogo")
+    public void upDataLogo(@RequestBody Logo l)
+    {
+         logoS.upLogo(l);
+    }
+    
 
 }
